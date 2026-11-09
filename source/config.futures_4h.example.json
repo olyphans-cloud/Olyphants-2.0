@@ -1,0 +1,13 @@
+{
+  "mode": "PAPER",
+  "symbol": "BTCUSDT",
+  "interval": "4h",
+  "strategy_mode": "d1h4_futures",
+  "initial_equity": 1000.0,
+  "costs": {"fee_rate": 0.0005, "spread_bps": 2.0, "slippage_bps": 2.0, "lot_step": 0.00001, "min_qty": 0.00001, "min_notional": 5.0},
+  "risk": {"risk_per_trade_pct": 0.5, "max_notional_pct_of_equity": 100.0, "max_daily_loss_pct": 2.0, "max_drawdown_pct": 10.0, "max_open_positions": 1, "min_stop_distance_pct": 0.2, "max_stop_distance_pct": 5.0, "max_data_age_seconds": 180, "max_signal_age_bars": 1, "allow_short": true, "max_loss_streak": 3, "loss_streak_cooldown_sec": 14400, "max_entries_per_hour": 1, "max_hold_sec": 0, "trailing_trail_pct": 0.0, "trailing_activation_pct": 4.0, "require_spread_check": false, "max_spread_pct": 0.15, "max_orderbook_age_sec": 5.0, "min_edge_cost_mult": 0.0},
+  "strategy": {"ema_fast": 20, "ema_slow": 50, "rsi_period": 14, "atr_period": 14, "atr_stop_mult": 2.0, "reward_risk": 2.0, "rsi_long_min": 50.0, "rsi_long_max": 75.0, "rsi_short_min": 25.0, "rsi_short_max": 50.0, "min_atr_pct": 0.0},
+  "state_dir": "state",
+  "shared_kill_switch_file": "state/KILL_ALL",
+  "gates_file": "state/release_gates.json"
+}
