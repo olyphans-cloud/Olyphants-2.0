@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1f8a4c"><meta name="dash-token" content="__DASH_TOKEN__"><meta name="description" content="Olyphants Mini App - Tokocrypto PAPER D1/H4"><title>Olyphants Mini App</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#eef7ef;--panel:#ffffff;--panel2:#e3f2e6;--muted:#587263;--text:#14301c;--green:#1f8a4c;--green-dark:#176b3a;--line:#c9e0cf;--amber:#c98a00;--bad:#b3261e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:18px 15px 28px;max-width:520px;margin:auto}
+.top{display:flex;align-items:center;gap:12px;margin:4px 2px 18px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#2fa862,#176b3a);color:#fff;display:grid;place-items:center;font-weight:900;font-size:18px}.brand{flex:1}.brand strong{font-size:18px;letter-spacing:.3px}.sub{color:var(--muted);font-size:12px}.pill{font-size:11px;font-weight:800;color:var(--green-dark);background:#d3ecd9;border:1px solid #a8d4b3;padding:5px 10px;border-radius:99px;letter-spacing:.6px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:16px;margin-bottom:13px}.label{font-size:11px;color:var(--muted);letter-spacing:1px;font-weight:700}.balance{font-size:28px;font-weight:800;margin:4px 0 13px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px}.metric b{display:block;font-size:18px;margin-top:2px}.metric small{color:var(--muted);font-size:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;background:var(--panel2);padding:5px;border-radius:13px;margin-top:12px}.tabs button{border:0;background:transparent;color:var(--muted);padding:10px;border-radius:10px;font-weight:700;font-size:14px}.tabs button.active{background:var(--green);color:#fff}
+.select{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:8px 10px;font-weight:700;font-size:14px}.muted{color:var(--muted)}
+.statusline{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}.dot{width:10px;height:10px;background:#9aa8a0;border-radius:50%}.dot.aktif{background:var(--green);box-shadow:0 0 0 4px #cdebd7}.dot.tunggu{background:var(--amber);box-shadow:0 0 0 4px #f6e7bf}.dot.bad{background:var(--bad);box-shadow:0 0 0 4px #f3cfcb}
+.power{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.power button{border-radius:12px;padding:12px;font-weight:800;font-size:14px;border:1px solid var(--line);background:var(--panel2);color:var(--text)}.power button.on{background:var(--green);border-color:var(--green);color:#fff}.power button.off{background:#fff;border-color:#e0b4b0;color:var(--bad)}.power button:disabled{opacity:.45}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:800}.sectionhead span{font-size:11px;color:var(--muted);font-weight:600}
+table{width:100%;border-collapse:collapse}td{padding:5px 4px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}td:first-child{color:var(--muted);width:42%}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.action{border:1px solid var(--line);background:var(--panel2);border-radius:14px;padding:13px 5px;text-align:center;color:var(--text);font-weight:700;font-size:12px}.action.active{background:var(--green);color:#fff;border-color:var(--green)}.action .ico{display:block;font-size:21px;margin-bottom:5px}
+.nav{position:sticky;bottom:8px;background:#ffffffee;border:1px solid var(--line);backdrop-filter:blur(12px);border-radius:17px;padding:9px 4px;display:grid;grid-template-columns:repeat(4,1fr);margin-top:17px}.nav button{border:0;background:none;color:var(--muted);font-size:10px;padding:5px 0}.nav button.active{color:var(--green-dark);font-weight:800}.nav .ico{display:block;font-size:18px;margin-bottom:2px}
+.notice{font-size:11px;color:var(--muted);text-align:center;margin:13px 5px 0}.scanline{padding:4px 0;border-bottom:1px solid var(--line);font-size:13px}.bad{color:var(--bad);font-weight:700}
+</style></head><body>
+<header class="top"><div class="logo">O</div><div class="brand"><strong>OLYPHANTS</strong><div class="sub">Tokocrypto · PAPER · D1 regime / H4 eksekusi</div></div><div class="pill">PAPER</div></header>
+<section class="card" id="telegramNotice" style="display:none"><div class="label">TELEGRAM MINI APP</div><div id="tgStatus" style="margin-top:5px">Memuat konteks Telegram…</div></section>
+
+<section class="card"><div class="row"><div><div class="label">MODE TRADING</div><strong id="modeLabel">Futures</strong></div><div class="pill">SIMULASI</div></div>
+<div class="tabs"><button data-mode="Spot">Spot</button><button data-mode="Futures" class="active">Futures</button></div>
+<div class="row" style="margin-top:14px"><span class="muted">Strategi aktif</span><select class="select" id="strategy" disabled><option>D1 / H4</option></select></div>
+<div class="statusline"><i class="dot" id="statusDot"></i><b id="robotStatus">—</b><span class="muted" id="connection">• Menghubungkan backend…</span></div>
+<div class="power"><button class="on" id="btnOn" type="button">ON</button><button class="off" id="btnOff" type="button">OFF</button></div></section>
+
+<section class="card"><div class="label">SALDO PAPER</div><div class="balance"><span id="balance">—</span> <span class="muted" style="font-size:14px">unit akun PAPER</span></div>
+<div class="metrics"><div class="metric"><small>PnL bersih</small><b id="pnl">—</b></div><div class="metric"><small>Posisi aktif</small><b id="positionCount">0</b></div></div></section>
+
+<section class="card"><div class="sectionhead">STATISTIK <span>PAPER</span></div><table id="statsTable"></table></section>
+<section class="card"><div class="sectionhead">AKTIVITAS <span>DATA ROBOT</span></div><div id="activity" class="muted">Memuat aktivitas PAPER…</div></section>
+
+<section class="card"><div class="sectionhead">MENU TRADING <span id="menuMode">FUTURES</span></div>
+<div class="actions"><button class="action" data-page="AI Scan" type="button"><span class="ico">⌁</span>AI Scan</button><button class="action" data-page="Manual" type="button"><span class="ico">✎</span>Manual</button><button class="action" data-page="Strategi" type="button"><span class="ico">⚙</span>Strategi</button></div></section>
+<section class="card" id="pageCard"><div class="sectionhead" id="pageTitle">STATUS ROBOT <span>PAPER</span></div><div class="muted" id="pageText"></div><div id="pageBody"></div></section>
+
+<nav class="nav"><button class="active" data-nav="Status" type="button"><span class="ico">▦</span>Status</button><button data-nav="Aktivitas" type="button"><span class="ico">☷</span>Aktivitas</button><button data-nav="Analisis" type="button"><span class="ico">⌁</span>Analisis</button><button data-nav="News" type="button"><span class="ico">▤</span>News</button></nav>
+<p class="notice">PAPER ONLY · Backend lokal · Tidak ada order LIVE · Robot OFF sampai Anda menekan ON</p>
+
+<script>
+const tg=window.Telegram&&window.Telegram.WebApp;
+if(tg){tg.ready();tg.expand();document.getElementById('telegramNotice').style.display='block';const u=tg.initDataUnsafe&&tg.initDataUnsafe.user;document.getElementById('tgStatus').textContent=u?'Telegram aktif · '+(u.first_name||'pengguna'):'Telegram aktif · konteks pengguna tidak tersedia'}
+const token=document.querySelector('meta[name="dash-token"]').content;
+const connection=document.getElementById('connection');
+let currentMode='Futures',state=null,currentPage='Status';
+const STATUS_TEXT={OFF:'OFF',AKTIF:'AKTIF',MENUNGGU_SIKLUS:'MENUNGGU SIKLUS PERTAMA',TERTAHAN:'TERTAHAN (data/siklus gagal)',HALT:'HALT',KILL_SWITCH:'KILL SWITCH',BELUM_DIPILIH:'SIMBOL BELUM DIPILIH'};
+
+async function api(path,body){
+  const headers={'X-Telegram-Init-Data':(tg&&tg.initData)||''};
+  if(token)headers['X-Dashboard-Token']=token;
+  const opt=body===undefined?{headers}:{method:'POST',headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify(body)};
+  const r=await fetch(path,opt);let j;
+  try{j=await r.json()}catch(e){throw Error('Respons backend tidak valid')}
+  if(!r.ok)throw Error(j.error||('HTTP '+r.status));
+  return j}
+function node(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
+function message(text,bad){connection.textContent='• '+text;connection.style.color=bad?'#b3261e':'#587263'}
+function fmt(v,d){return v==null?'—':Number(v).toLocaleString('id-ID',{maximumFractionDigits:d==null?4:d})}
+function addRow(t,k,v){const r=document.createElement('tr');r.appendChild(node('td',k));r.appendChild(node('td',v));t.appendChild(r)}
+
+function renderStatus(tf){
+  const st=tf.robot_status;
+  document.getElementById('robotStatus').textContent=STATUS_TEXT[st]||st;
+  const dot=document.getElementById('statusDot');
+  dot.className='dot'+(st==='AKTIF'?' aktif':st==='MENUNGGU_SIKLUS'?' tunggu':(st==='TERTAHAN'||st==='HALT'||st==='KILL_SWITCH')?' bad':'');
+  const armed=st==='AKTIF'||st==='MENUNGGU_SIKLUS'||st==='TERTAHAN';
+  document.getElementById('btnOn').disabled=armed;
+  document.getElementById('btnOff').disabled=!armed;
+}
+function renderStats(tf){
+  const t=document.getElementById('statsTable');t.textContent='';
+  addRow(t,'Simbol',tf.coin||'belum dipilih');
+  addRow(t,'Jumlah transaksi',String(tf.trades));
+  addRow(t,'Win rate',(tf.win_rate*100).toFixed(1)+'%');
+  addRow(t,'Profit / Loss',fmt(tf.profit,2)+' / '+fmt(tf.loss,2));
+  addRow(t,'Drawdown',tf.drawdown_pct.toFixed(2)+'%');
+  addRow(t,'Posisi aktif',tf.position?JSON.stringify(tf.position):'tidak ada');
+  addRow(t,'HALT',tf.halt&&tf.halt.halted?('YA: '+(tf.halt.reason||'')):'tidak');
+  addRow(t,'Safe Guard',tf.safeguard?JSON.stringify(tf.safeguard):'—');
+  const rej=tf.rejections||{};addRow(t,'Order ditolak',Object.keys(rej).length?JSON.stringify(rej):'—');
+}
+function renderActivity(tf){
+  const a=document.getElementById('activity');a.textContent='';
+  const ls=tf.last_step;
+  a.appendChild(node('b',ls?('Siklus terakhir: '+(ls.status||'tidak diketahui')):'Belum ada siklus PAPER sejak ON'));
+  if(ls&&ls.error)a.appendChild(node('div','Keterangan: '+ls.error,'bad'));
+  a.appendChild(node('div','Robot: '+(STATUS_TEXT[tf.robot_status]||tf.robot_status)+' · Simbol: '+(tf.coin||'belum dipilih')));
+  if(tf.halt&&tf.halt.halted)a.appendChild(node('div','HALT: '+(tf.halt.reason||'aktif'),'bad'));
+}
+function renderPage(s,tf){
+  const copy={Status:['STATUS ROBOT','Status diambil langsung dari backend PAPER.'],Aktivitas:['AKTIVITAS','Hasil siklus PAPER terakhir ada pada kartu Aktivitas di atas.'],Analisis:['ANALISIS PAPER','Strategi D1 regime / H4 eksekusi. Analisis AI hanya untuk pemantauan PAPER, bukan eksekusi.'],News:['NEWS','News belum terhubung ke backend dashboard ini.'],'AI Scan':['AI SCAN','Memilih simbol dari daftar terdaftar lewat scanner backend.'],Manual:['MANUAL','Pilih simbol; pilihan langsung diterapkan.'],Strategi:['STRATEGI','Strategi operasional: D1 regime / H4 eksekusi, '+currentMode+' PAPER.']};
+  const x=copy[currentPage]||copy.Status;
+  document.getElementById('pageTitle').textContent=x[0]+' · PAPER';
+  document.getElementById('pageText').textContent=x[1];
+  document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===currentPage));
+  document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===currentPage));
+  const body=document.getElementById('pageBody');body.textContent='';
+  body.appendChild(node('div','Simbol terdaftar ('+s.coins.length+'): '+s.coins.join(', '),'muted'));
+  if(currentPage==='Manual'){
+    const sel=node('select',undefined,'select');sel.id='symbolSelect';sel.style.marginTop='10px';
+    const blank=node('option','— pilih simbol —');blank.value='';sel.appendChild(blank);
+    for(const c of s.coins){const o=node('option',c);o.value=c;o.selected=c===tf.coin;sel.appendChild(o)}
+    sel.onchange=()=>{if(sel.value)post('/api/select',{scan_mode:'MANUAL',timeframe:'H4',coin:sel.value,market:currentMode})};
+    body.appendChild(sel);
+  }
+  if(currentPage==='AI Scan'){
+    const results=(s.scan&&s.scan.H4)||[];
+    body.appendChild(node('div',results.length?'Hasil scan terakhir:':'Belum ada hasil scan.','muted'));
+    for(const it of results)body.appendChild(node('div',it.symbol+' · '+(it.selected?'TERPILIH':'tidak dipilih')+' · skor '+Number(it.score||0).toFixed(3)+' · '+(it.reasons||[]).join(', '),'scanline'));
+  }
+}
+function render(s){
+  state=s;currentMode=s.market||currentMode;
+  document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x.dataset.mode===currentMode));
+  const tf=s.timeframes&&s.timeframes.H4;if(!tf)throw Error('Backend tidak mengirim status H4');
+  document.getElementById('modeLabel').textContent=currentMode;
+  document.getElementById('menuMode').textContent=currentMode.toUpperCase();
+  document.getElementById('balance').textContent=fmt(tf.balance);
+  document.getElementById('pnl').textContent=fmt(tf.net_pnl);
+  document.getElementById('positionCount').textContent=tf.position?'1':'0';
+  renderStatus(tf);renderStats(tf);renderActivity(tf);renderPage(s,tf);
+  message('Backend PAPER tersambung · '+(s.runner_alive?'siklus latar berjalan':'siklus latar berhenti'));
+}
+async function refresh(){try{render(await api('/api/state'))}catch(e){message(e.message,true)}}
+async function post(path,body){try{const r=await api(path,body);render(r.state||r)}catch(e){message(e.message,true);await refresh()}}
+
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=async()=>{
+  const requested=b.dataset.mode;
+  if(!state||!state.markets.includes(requested)){message('Market '+requested+' belum tersedia pada backend',true);return}
+  const coin=(state.timeframes.H4&&state.timeframes.H4.coin)||state.coins[0];
+  await post('/api/select',{scan_mode:'MANUAL',timeframe:'H4',coin:coin,market:requested})});
+document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>{currentPage=b.dataset.nav;if(state)render(state)});
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=async()=>{
+  currentPage=b.dataset.page;
+  if(currentPage==='AI Scan'){await post('/api/select',{scan_mode:'AI_SCAN',timeframe:'H4',coin:null,market:currentMode})}
+  else if(state){render(state)}});
+document.getElementById('btnOn').onclick=async()=>{await post('/api/arm',{timeframe:'H4'});setTimeout(refresh,4000)};
+document.getElementById('btnOff').onclick=()=>post('/api/disarm',{timeframe:'H4'});
+refresh();setInterval(refresh,15000);
+</script></body></html>
